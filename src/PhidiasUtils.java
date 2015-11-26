@@ -1,5 +1,8 @@
 
 import java.sql.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONException;
 
 /**
  *
@@ -15,18 +18,16 @@ public class PhidiasUtils {
                 String myUrl = "jdbc:mysql://54.82.28.227/phidias_rochester";
                 Class.forName(myDriver);
                 Connection conn = DriverManager.getConnection(myUrl, "rochester", "BS3u9HAh");
-
-                //PreparedStatement st = conn.prepareStatement("SELECT COUNT(*) as total_semana FROM PERSONA INNER JOIN Eventualidad_Personas ON PERSONA.Id_Persona = Eventualidad_Personas.Persona_Id_Persona INNER JOIN Eventualidades ON Eventualidades.Id_Eventualidad = Eventualidad_Personas.Eventualidades_Id_Eventualidad INNER JOIN Subtipo_Eventualidad ON Subtipo_Eventualidad.Id_Subtipo_Eventualidad = Eventualidad_Personas.subtipo_eventualidad INNER JOIN Tipo_Eventualidad ON Tipo_Eventualidad.Id_Tipo_Eventualidad = Subtipo_Eventualidad.Tipo_Eventualidad_Id_Tipo_Eventualidad   WHERE PERSONA.Id_Persona=? AND eventualidades.Fecha BETWEEN '2014-07-01' AND '2015-07-01' AND Tipo_Eventualidad.Id_Tipo_Eventualidad = ? GROUP BY PERSONA.Id_Persona ORDER BY Eventualidades.fecha_ingreso desc");
-                //PreparedStatement st = conn.prepareStatement("SELECT PERSONA.Codigo, PERSONA.email FROM PERSONA WHERE PERSONA.Codigo = ?");
-                //PreparedStatement st = conn.prepareStatement("SELECT sophia_years.id, sophia_years.name, sophia_years.start_date, sophia_years.end_date FROM sophia_years WHERE sophia_years.id = ?");
                 PreparedStatement st = conn.prepareStatement("SELECT yr.id, yr.name, "
                                                             + "sec.name, "
-                                                            + "TRIM(std.code),"
+                                                            + "TRIM(std.code), "
                                                             + "ppl.firstname, "
                                                             + "ppl.lastname, "
                                                             + "ppl.document, "
-                                                            + "sec.name, "
-                                                            + "pc.blood "
+                                                            + "pc.blood, "
+                                                            + "(GROUP_CONCAT(DISTINCT CONCAT(ps.name,ps.id)) REGEXP 'Seguro de accidentes14') as SA, "
+                                                            + "(GROUP_CONCAT(DISTINCT CONCAT(ps.name,ps.id)) REGEXP 'Almuerzo4') AS AL, "
+                                                            + "(GROUP_CONCAT(DISTINCT CONCAT(ps.name,ps.id)) REGEXP 'Medias Nueves5') AS MN "
                                                             + "FROM sophia_people ppl "
                                                             + "LEFT join sophia_people_students std ON ppl.id = std.id "
                                                             + "LEFT join sophia_person_clinics pc ON ppl.id = pc.person "
@@ -44,9 +45,32 @@ public class PhidiasUtils {
                 //st.setInt(2, tipo);
                 ResultSet rs = st.executeQuery();
                 while (rs.next()){
-                    String name = rs.getString("yr.name");
-                    result = name;
-                    System.out.println(result);
+                    JSONObject obj = new JSONObject();
+                    
+                    String idyear       = rs.getString("yr.id");
+                    String year         = rs.getString("yr.name");
+                    String curso        = rs.getString("sec.name");
+                    String codigo_std   = rs.getString("TRIM(std.code)");
+                    String name         = rs.getString("ppl.firstname");
+                    String apellido     = rs.getString("ppl.lastname");
+                    String doc          = rs.getString("ppl.document");
+                    Integer al          = rs.getInt("AL");
+                    Integer sa          = rs.getInt("SA");
+                    Integer mn          = rs.getInt("AL");
+                    
+                    //result = name;
+                    obj.put("idyear", idyear);
+                    obj.put("year", year);
+                    obj.put("curso", curso);
+                    obj.put("codigo", codigo_std);
+                    obj.put("nombres", name);
+                    obj.put("apellidos", apellido);
+                    obj.put("doc", doc);
+                    obj.put("almuerzo", al);
+                    obj.put("seguro_accidentes", sa);
+                    obj.put("medias_nueves", mn);
+                    
+                    System.out.println(obj);
                     System.out.format("%s", result);
                 }
                 st.close();
@@ -60,6 +84,6 @@ public class PhidiasUtils {
     
     public static void main(String[]arg){
         PhidiasUtils phidiasUtils = new PhidiasUtils();
-        phidiasUtils.phidiasResponse(15032);
+        phidiasUtils.phidiasResponse(15031);
     }  
 }
