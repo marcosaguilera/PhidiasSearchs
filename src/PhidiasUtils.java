@@ -10,15 +10,16 @@ import org.json.JSONException;
  */
 public class PhidiasUtils { 
 
-    public String phidiasResponse(int codigo){
+    public JSONObject phidiasResponse(int codigo){
         System.out.println(codigo);
             String result  = "";
+            JSONObject obj = new JSONObject();
             try{
                 String myDriver = "org.gjt.mm.mysql.Driver";
                 String myUrl = "jdbc:mysql://54.82.28.227/phidias_rochester";
                 Class.forName(myDriver);
                 Connection conn = DriverManager.getConnection(myUrl, "rochester", "BS3u9HAh");
-                PreparedStatement st = conn.prepareStatement("SELECT yr.id, yr.name, "
+                PreparedStatement st = conn.prepareStatement( "SELECT yr.id, yr.name, "
                                                             + "sec.name, "
                                                             + "TRIM(std.code), "
                                                             + "ppl.firstname, "
@@ -45,7 +46,6 @@ public class PhidiasUtils {
                 //st.setInt(2, tipo);
                 ResultSet rs = st.executeQuery();
                 while (rs.next()){
-                    JSONObject obj = new JSONObject();
                     
                     String idyear       = rs.getString("yr.id");
                     String year         = rs.getString("yr.name");
@@ -58,7 +58,6 @@ public class PhidiasUtils {
                     Integer sa          = rs.getInt("SA");
                     Integer mn          = rs.getInt("AL");
                     
-                    //result = name;
                     obj.put("idyear", idyear);
                     obj.put("year", year);
                     obj.put("curso", curso);
@@ -79,7 +78,7 @@ public class PhidiasUtils {
                 System.err.println("Got an exception! ");
                 System.err.println(e.getMessage());
             }
-        return result;
+        return obj;
     }
     
     public static void main(String[]arg){
