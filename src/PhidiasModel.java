@@ -13,6 +13,18 @@ public class PhidiasModel {
     private Integer sa;
     private Integer mn;
     
+    String  codigo_std_2;
+    String name_2;
+    String apellido_2;
+    String papa_doc;
+    String papa_nombre;
+    String papa_apellido;
+    String papa_gender;
+    String papa_email;
+    
+    
+    
+    
     /**
      * @return the year
      */

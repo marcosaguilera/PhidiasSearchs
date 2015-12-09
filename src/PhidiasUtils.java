@@ -9,14 +9,16 @@ import org.json.JSONException;
  * @author rochester
  */
 public class PhidiasUtils { 
+    
+    private String myDriver = "org.gjt.mm.mysql.Driver";
+    private String myUrl = "jdbc:mysql://54.82.28.227/phidias_rochester";
 
     public JSONObject phidiasResponse(int codigo){
         System.out.println(codigo);
             String result  = "";
             JSONObject obj = new JSONObject();
             try{
-                String myDriver = "org.gjt.mm.mysql.Driver";
-                String myUrl = "jdbc:mysql://54.82.28.227/phidias_rochester";
+                
                 Class.forName(myDriver);
                 Connection conn = DriverManager.getConnection(myUrl, "rochester", "BS3u9HAh");
                 PreparedStatement st = conn.prepareStatement( "SELECT yr.id, yr.name, "
@@ -42,8 +44,6 @@ public class PhidiasUtils {
                                                             + "ORDER BY sec.course, sec.name");
                 
                 st.setInt(1, codigo);
-                //st.setDate(2, fecha);
-                //st.setInt(2, tipo);
                 ResultSet rs = st.executeQuery();
                 while (rs.next()){
                     
