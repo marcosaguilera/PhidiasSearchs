@@ -9,7 +9,7 @@
  */
 public class FatherDataModel {
     /*FATHER MODEL*/
-    private String  codigo_std_2;
+    private String codigo_std_2;
     private String name_2;
     private String apellido_2;
     private String papa_doc;

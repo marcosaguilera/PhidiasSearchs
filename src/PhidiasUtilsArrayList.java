@@ -127,7 +127,7 @@ public class PhidiasUtilsArrayList {
                     dataModel.setApellido_2(apellido);
                     dataModel.setPapa_doc(papa_doc);
                     dataModel.setPapa_nombre(papa_nombre);
-                    dataModel.setApellido_2(papa_apellido);
+                    dataModel.setPapa_apellido(papa_apellido);
                     dataModel.setPapa_gender(papa_gender);
                     dataModel.setPapa_email(papa_email);
                     MyDataFather.add(dataModel);
@@ -148,7 +148,7 @@ public class PhidiasUtilsArrayList {
     public ArrayList<MotherDataModel> getMotherData(int codigo){
             System.out.println(codigo);
             String result  = "";
-            ArrayList<MotherDataModel> MyDataFather = new ArrayList();
+            ArrayList<MotherDataModel> MyDataMother = new ArrayList();
             MotherDataModel dataModel = new MotherDataModel();
             
             try{
@@ -184,12 +184,12 @@ public class PhidiasUtilsArrayList {
                     dataModel.setCodigo_std_2(codigo_std);
                     dataModel.setName_2(nombre);
                     dataModel.setApellido_2(apellido);
-                    dataModel.setPapa_doc(papa_doc);
-                    dataModel.setPapa_nombre(papa_nombre);
-                    dataModel.setApellido_2(papa_apellido);
-                    dataModel.setPapa_gender(papa_gender);
-                    dataModel.setPapa_email(papa_email);
-                    MyDataFather.add(dataModel);
+                    dataModel.setMama_doc(papa_doc);
+                    dataModel.setMama_nombre(papa_nombre);
+                    dataModel.setMama_apellido(papa_apellido);
+                    dataModel.setMama_gender(papa_gender);
+                    dataModel.setMama_email(papa_email);
+                    MyDataMother.add(dataModel);
                     
                     System.out.format("%s", result);
                 }
@@ -199,7 +199,7 @@ public class PhidiasUtilsArrayList {
                 System.err.println("Got an exception! ");
                 System.err.println(e.getMessage());
             }
-        return MyDataFather;
+        return MyDataMother;
     } 
     /*
     *Teacher Data 
@@ -213,7 +213,7 @@ public class PhidiasUtilsArrayList {
             try{
                 Class.forName(myDriver);
                 Connection conn = DriverManager.getConnection(myUrl, "rochester", "BS3u9HAh");
-                PreparedStatement st = conn.prepareStatement( "SELECT TRIM(sophia_people_students.code) as codigo,"
+                PreparedStatement st = conn.prepareStatement( "SELECT TRIM(sophia_people_students.code) as codigo, "
                         + "docente.id, "
                         + "docente.lastname, "
                         + "docente.firstname, "
@@ -227,7 +227,7 @@ public class PhidiasUtilsArrayList {
                 st.setInt(1, codigo);
                 ResultSet rs = st.executeQuery();
                 while (rs.next()){
-                    String codigo_std       = rs.getString("TRIM(codigo)");
+                    String codigo_std       = rs.getString("codigo");
                     String nombre           = rs.getString("docente.firstname");
                     String apellido         = rs.getString("docente.lastname");
                     String email            = rs.getString("docente.email");
@@ -254,5 +254,6 @@ public class PhidiasUtilsArrayList {
         phidiasUtilsArrayList.phidiasResponse(15031);
         phidiasUtilsArrayList.getFatherData(15031);
         phidiasUtilsArrayList.getMotherData(15031);
+        phidiasUtilsArrayList.getTeacherData(15031);
     }
 }

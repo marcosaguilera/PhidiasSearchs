@@ -9,14 +9,14 @@
  */
 public class MotherDataModel {
     /*MOTHER MODEL*/
-    private String  codigo_std_2;
+    private String codigo_std_2;
     private String name_2;
     private String apellido_2;
-    private String papa_doc;
-    private String papa_nombre;
-    private String papa_apellido;
-    private String papa_gender;
-    private String papa_email;
+    private String mama_doc;
+    private String mama_nombre;
+    private String mama_apellido;
+    private String mama_gender;
+    private String mama_email;
 
     /**
      * @return the codigo_std_2
@@ -61,72 +61,74 @@ public class MotherDataModel {
     }
 
     /**
-     * @return the papa_doc
+     * @return the mama_doc
      */
-    public String getPapa_doc() {
-        return papa_doc;
+    public String getMama_doc() {
+        return mama_doc;
     }
 
     /**
-     * @param papa_doc the papa_doc to set
+     * @param mama_doc the mama_doc to set
      */
-    public void setPapa_doc(String papa_doc) {
-        this.papa_doc = papa_doc;
+    public void setMama_doc(String mama_doc) {
+        this.mama_doc = mama_doc;
     }
 
     /**
-     * @return the papa_nombre
+     * @return the mama_nombre
      */
-    public String getPapa_nombre() {
-        return papa_nombre;
+    public String getMama_nombre() {
+        return mama_nombre;
     }
 
     /**
-     * @param papa_nombre the papa_nombre to set
+     * @param mama_nombre the mama_nombre to set
      */
-    public void setPapa_nombre(String papa_nombre) {
-        this.papa_nombre = papa_nombre;
+    public void setMama_nombre(String mama_nombre) {
+        this.mama_nombre = mama_nombre;
     }
 
     /**
-     * @return the papa_apellido
+     * @return the mama_apellido
      */
-    public String getPapa_apellido() {
-        return papa_apellido;
+    public String getMama_apellido() {
+        return mama_apellido;
     }
 
     /**
-     * @param papa_apellido the papa_apellido to set
+     * @param mama_apellido the mama_apellido to set
      */
-    public void setPapa_apellido(String papa_apellido) {
-        this.papa_apellido = papa_apellido;
+    public void setMama_apellido(String mama_apellido) {
+        this.mama_apellido = mama_apellido;
     }
 
     /**
-     * @return the papa_gender
+     * @return the mama_gender
      */
-    public String getPapa_gender() {
-        return papa_gender;
+    public String getMama_gender() {
+        return mama_gender;
     }
 
     /**
-     * @param papa_gender the papa_gender to set
+     * @param mama_gender the mama_gender to set
      */
-    public void setPapa_gender(String papa_gender) {
-        this.papa_gender = papa_gender;
+    public void setMama_gender(String mama_gender) {
+        this.mama_gender = mama_gender;
     }
 
     /**
-     * @return the papa_email
+     * @return the mama_email
      */
-    public String getPapa_email() {
-        return papa_email;
+    public String getMama_email() {
+        return mama_email;
     }
 
     /**
-     * @param papa_email the papa_email to set
+     * @param mama_email the mama_email to set
      */
-    public void setPapa_email(String papa_email) {
-        this.papa_email = papa_email;
+    public void setMama_email(String mama_email) {
+        this.mama_email = mama_email;
     }
+
+   
 }
