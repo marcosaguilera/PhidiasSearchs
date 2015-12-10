@@ -12,6 +12,7 @@ public class PhidiasModel {
     private Integer al;
     private Integer sa;
     private Integer mn;
+   
     
     /**
      * @return the year
