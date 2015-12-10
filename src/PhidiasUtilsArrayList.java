@@ -79,11 +79,13 @@ public class PhidiasUtilsArrayList {
             }catch(Exception e){
                 System.err.println("Got an exception! ");
                 System.err.println(e.getMessage());
-            }
-            
+            }     
         return MyData;
     }
-     
+    
+    /*
+    *Father Data 
+    */
     public ArrayList<FatherDataModel> getFatherData(int codigo){
             System.out.println(codigo);
             String result  = "";
@@ -140,7 +142,9 @@ public class PhidiasUtilsArrayList {
             }
         return MyDataFather;
     } 
-     
+    /*
+    *Mother Data 
+    */ 
     public ArrayList<MotherDataModel> getMotherData(int codigo){
             System.out.println(codigo);
             String result  = "";
@@ -197,6 +201,53 @@ public class PhidiasUtilsArrayList {
             }
         return MyDataFather;
     } 
+    /*
+    *Teacher Data 
+    */
+    public ArrayList<TeacherDataModel> getTeacherData(int codigo){
+            System.out.println(codigo);
+            String result  = "";
+            ArrayList<TeacherDataModel> MyDataTeacher = new ArrayList();
+            TeacherDataModel dataModel = new TeacherDataModel();
+            
+            try{
+                Class.forName(myDriver);
+                Connection conn = DriverManager.getConnection(myUrl, "rochester", "BS3u9HAh");
+                PreparedStatement st = conn.prepareStatement( "SELECT TRIM(sophia_people_students.code) as codigo,"
+                        + "docente.id, "
+                        + "docente.lastname, "
+                        + "docente.firstname, "
+                        + "docente.email "
+                        + "FROM sophia_people estudiante INNER JOIN sophia_course_section_enrollments ON estudiante.id = sophia_course_section_enrollments.person "
+                        + "INNER JOIN sophia_course_sections ON sophia_course_sections.id = sophia_course_section_enrollments.section "
+                        + "INNER JOIN sophia_people docente ON docente.id = sophia_course_sections.teacher "
+                        + "INNER JOIN sophia_people_students ON estudiante.id = sophia_people_students.id "
+                        + "WHERE estudiante.type = 1 AND TRIM(sophia_people_students.code) = ?");
+                
+                st.setInt(1, codigo);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()){
+                    String codigo_std       = rs.getString("TRIM(codigo)");
+                    String nombre           = rs.getString("docente.firstname");
+                    String apellido         = rs.getString("docente.lastname");
+                    String email            = rs.getString("docente.email");
+                    
+                    dataModel.setCodigo_std(codigo_std);
+                    dataModel.setNombre(nombre);
+                    dataModel.setApellido(apellido);
+                    dataModel.setEmail(email);
+                    MyDataTeacher.add(dataModel);
+                    
+                    System.out.format("%s", result);
+                }
+                st.close();
+
+            }catch(Exception e){
+                System.err.println("Got an exception! ");
+                System.err.println(e.getMessage());
+            }
+        return MyDataTeacher;
+    }
     
     public static void main(String[]arg){
         PhidiasUtilsArrayList phidiasUtilsArrayList = new PhidiasUtilsArrayList();
