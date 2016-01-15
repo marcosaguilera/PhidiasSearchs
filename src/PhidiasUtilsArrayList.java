@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Random;
 import org.json.JSONObject;
 
 
@@ -249,11 +250,23 @@ public class PhidiasUtilsArrayList {
         return MyDataTeacher;
     }
     
+    public String getToken(int chars) {
+        String CharSet = "ABCDEFGHJKLMNOPQRSTUVWXYZ1234567890@";
+        String Token = "";
+        for (int a = 1; a <= chars; a++) {
+            Token += CharSet.charAt(new Random().nextInt(CharSet.length()));
+        }
+        System.out.println(Token);
+        return Token;
+    }
+    
+    
     public static void main(String[]arg){
         PhidiasUtilsArrayList phidiasUtilsArrayList = new PhidiasUtilsArrayList();
-        phidiasUtilsArrayList.phidiasResponse(15031);
-        phidiasUtilsArrayList.getFatherData(15031);
-        phidiasUtilsArrayList.getMotherData(15031);
-        phidiasUtilsArrayList.getTeacherData(15031);
+        //phidiasUtilsArrayList.phidiasResponse(15031);
+        //phidiasUtilsArrayList.getFatherData(15031);
+        //phidiasUtilsArrayList.getMotherData(15031);
+        //phidiasUtilsArrayList.getTeacherData(15031);
+        phidiasUtilsArrayList.getToken(6);
     }
 }
